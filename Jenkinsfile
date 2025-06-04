@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    
+
     stages {
         stage('Checkout') {
             steps {
@@ -9,12 +9,24 @@ pipeline {
             }
         }
         stage('Build Docker Image') {
+            agent {
+                docker {
+                    image 'docker:latest'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock'
+                }
+            }
             steps {
                 // Se construye la imagen Docker a partir del Dockerfile en el directorio.
                 sh 'docker build -t sample-app .'
             }
         }
         stage('Deploy') {
+            agent {
+                docker {
+                    image 'docker:latest'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock'
+                }
+            }
             steps {
                 // Si existe un contenedor anterior, se elimina.
                 sh 'docker rm -f sample-app || true'
@@ -29,3 +41,4 @@ pipeline {
         }
     }
 }
+
