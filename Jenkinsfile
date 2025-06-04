@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Se clona el repositorio de GitHub.
-                git url: 'https://github.com/YourUsername/Evaluacion-N2-DRY7122.git', branch: 'master'
+                git url: 'https://github.com/Jotse10/Evaluacion-N2-DRY7122.git', branch: 'master'
             }
         }
         stage('Build Docker Image') {
