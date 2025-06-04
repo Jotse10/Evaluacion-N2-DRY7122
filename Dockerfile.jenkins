@@ -1,31 +1,15 @@
-# Usar la imagen oficial de Jenkins LTS como base
+# Usa la imagen oficial LTS de Jenkins como base
 FROM jenkins/jenkins:lts
 
-# Cambiar a usuario root para poder instalar paquetes
+# Cambia a usuario root para poder instalar paquetes
 USER root
 
-# Actualizar el gestor de paquetes e instalar el cliente Docker
-RUN apt-get update && apt-get install -y docker.io && rm -rf /var/lib/apt/lists/*
+# Instala el cliente Docker y agrega al usuario jenkins al grupo docker
+RUN apt-get update && apt-get install -y docker.io && \
+    usermod -aG docker jenkins && \
+    rm -rf /var/lib/apt/lists/*
 
-# Agregar al usuario 'jenkins' al grupo 'docker'
-RUN usermod -aG docker jenkins
-
-# Regresar al usuario jenkins para que Jenkins se ejecute con su configuración habitual
+# Vuelve al usuario jenkins
 USER jenkins
 
-# Imagen base de Python
-
-
-# Directorio de trabajo
-
-# Copiamos el archivo de dependencias y lo instalamos
-
-
-# Copiamos el resto del código (app.py, Jenkinsfile, etc.)
-
-
-# Exponemos el puerto 9999 donde la app escuchará
-
-
-# Comando para ejecutar la aplicación
 
